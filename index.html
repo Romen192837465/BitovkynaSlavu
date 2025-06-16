@@ -88,11 +88,42 @@
             position: relative;
         }
         
-        .product-img {
+        .product-img-container {
             height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-img {
+            height: 100%;
+            width: 100%;
             background-color: var(--metal-gray);
             background-size: cover;
             background-position: center;
+            transition: transform 0.5s ease;
+        }
+        
+        .slider-controls {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .slider-dot.active {
+            background-color: white;
         }
         
         .product-info {
@@ -194,6 +225,16 @@
             margin-right: 10px;
         }
         
+        .crown-icon {
+            color: gold;
+            margin-left: 5px;
+        }
+        
+        .fire-icon {
+            color: orange;
+            margin-left: 5px;
+        }
+        
         @media (max-width: 768px) {
             nav ul {
                 flex-direction: column;
@@ -233,7 +274,14 @@
             <div class="products">
                 <!-- Бытовка Стандарт -->
                 <div class="product-card">
-                    <div class="product-img" style="background-image: url('images/bytovka1.jpg');"></div>
+                    <div class="product-img-container">
+                        <div class="product-img" style="background-image: url('images/bytovka1.jpg');" data-slider="slider1" data-index="0"></div>
+                        <div class="slider-controls">
+                            <div class="slider-dot active" data-slider="slider1" data-index="0"></div>
+                            <div class="slider-dot" data-slider="slider1" data-index="1"></div>
+                            <div class="slider-dot" data-slider="slider1" data-index="2"></div>
+                        </div>
+                    </div>
                     <div class="product-info">
                         <h3>Бытовка <span class="badge">Хозблок</span></h3>
                         <p>Базовый вариант для хранения инвентаря</p>
@@ -248,9 +296,16 @@
                 
                 <!-- Бытовка Утепленная -->
                 <div class="product-card">
-                    <div class="product-img" style="background-image: url('images/bytovka2.jpg');"></div>
+                    <div class="product-img-container">
+                        <div class="product-img" style="background-image: url('images/bytovka2.jpg');" data-slider="slider2" data-index="0"></div>
+                        <div class="slider-controls">
+                            <div class="slider-dot active" data-slider="slider2" data-index="0"></div>
+                            <div class="slider-dot" data-slider="slider2" data-index="1"></div>
+                            <div class="slider-dot" data-slider="slider2" data-index="2"></div>
+                        </div>
+                    </div>
                     <div class="product-info">
-                        <h3>Бытовка <span class="badge">Утеплённая</span></h3>
+                        <h3>Бытовка <span class="badge">Утеплённая <i class="fas fa-fire fire-icon"></i></span></h3>
                         <p>Для круглогодичного использования</p>
                         <div class="price">70 000 руб.</div>
                         <div class="specs">
@@ -263,9 +318,16 @@
                 
                 <!-- Бытовка Люкс -->
                 <div class="product-card">
-                    <div class="product-img" style="background-image: url('images/bytovka3.jpg');"></div>
+                    <div class="product-img-container">
+                        <div class="product-img" style="background-image: url('images/bytovka3.jpg');" data-slider="slider3" data-index="0"></div>
+                        <div class="slider-controls">
+                            <div class="slider-dot active" data-slider="slider3" data-index="0"></div>
+                            <div class="slider-dot" data-slider="slider3" data-index="1"></div>
+                            <div class="slider-dot" data-slider="slider3" data-index="2"></div>
+                        </div>
+                    </div>
                     <div class="product-info">
-                        <h3>Бытовка <span class="badge">Люкс</span></h3>
+                        <h3>Бытовка <span class="badge">Люкс <i class="fas fa-crown crown-icon"></i></h3></span>
                         <p>В стиле лофт</p>
                         <div class="price">150 000 руб.</div>
                         <div class="specs">
@@ -278,7 +340,14 @@
                 
                 <!-- Санузел-->
                 <div class="product-card">
-                    <div class="product-img" style="background-image: url('images/bytovka4.jpg');"></div>
+                    <div class="product-img-container">
+                        <div class="product-img" style="background-image: url('images/bytovka4.jpg');" data-slider="slider4" data-index="0"></div>
+                        <div class="slider-controls">
+                            <div class="slider-dot active" data-slider="slider4" data-index="0"></div>
+                            <div class="slider-dot" data-slider="slider4" data-index="1"></div>
+                            <div class="slider-dot" data-slider="slider4" data-index="2"></div>
+                        </div>
+                    </div>
                     <div class="product-info">
                         <h3>Санузел</h3>
                         <p>Готовое решение для организации туалета</p>
@@ -332,5 +401,75 @@
             <p>© 2025 БытовкинаСлаву. Все права защищены.</p>
         </div>
     </footer>
+
+    <script>
+        // Массив изображений для каждого слайдера
+        const sliderImages = {
+            slider1: [
+                'images/bytovka1.jpg',
+                'images/bytovka1_2.jpg',
+                'images/bytovka1_3.jpg'
+            ],
+            slider2: [
+                'images/bytovka2.jpg',
+                'images/bytovka2_2.jpg',
+                'images/bytovka2_3.jpg'
+            ],
+            slider3: [
+                'images/bytovka3.jpg',
+                'images/bytovka3_2.jpg',
+                'images/bytovka3_3.jpg'
+            ],
+            slider4: [
+                'images/bytovka4.jpg',
+                'images/bytovka4_2.jpg',
+                'images/bytovka4_3.jpg'
+            ]
+        };
+
+        // Обработчик кликов по точкам слайдера
+        document.querySelectorAll('.slider-dot').forEach(dot => {
+            dot.addEventListener('click', function() {
+                const sliderId = this.getAttribute('data-slider');
+                const index = parseInt(this.getAttribute('data-index'));
+                
+                // Обновляем изображение
+                const imgContainer = document.querySelector(`.product-img[data-slider="${sliderId}"]`);
+                imgContainer.style.backgroundImage = `url('${sliderImages[sliderId][index]}')`;
+                
+                // Обновляем активную точку
+                document.querySelectorAll(`.slider-dot[data-slider="${sliderId}"]`).forEach(d => {
+                    d.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        // Автоматическое перелистывание слайдов
+        setInterval(() => {
+            Object.keys(sliderImages).forEach(sliderId => {
+                const dots = document.querySelectorAll(`.slider-dot[data-slider="${sliderId}"]`);
+                let currentIndex = 0;
+                
+                // Находим текущий активный слайд
+                dots.forEach((dot, index) => {
+                    if (dot.classList.contains('active')) {
+                        currentIndex = index;
+                    }
+                });
+                
+                // Вычисляем следующий индекс
+                const nextIndex = (currentIndex + 1) % dots.length;
+                
+                // Переключаем на следующий слайд
+                const imgContainer = document.querySelector(`.product-img[data-slider="${sliderId}"]`);
+                imgContainer.style.backgroundImage = `url('${sliderImages[sliderId][nextIndex]}')`;
+                
+                // Обновляем активную точку
+                dots.forEach(d => d.classList.remove('active'));
+                dots[nextIndex].classList.add('active');
+            });
+        }, 5000);
+    </script>
 </body>
 </html>
